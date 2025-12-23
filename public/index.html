@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SayOne Ventures </title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <h1>SayOne Ventures</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="product-catalogue.pdf" target="_blank">Product Catalogue</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Premium Quality Products</h1>
+            <p class="hero-subtitle">From our Farmers till your Table</p>
+            <p class="hero-description">Experience the finest selection of quality products, sourced directly from trusted farmers and exported worldwide.</p>
+            <a href="contact.html" class="cta-button">Contact Us</a>
+        </div>
+        <div class="hero-image">
+            <div class="hero-placeholder">
+                <img src="images/farmer_real.avif" alt="Indian Farmer">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌾</div>
+                    <h3>Premium Quality</h3>
+                    <p>Handpicked organic millets ensuring the highest standards of quality and nutrition.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Global Export</h3>
+                    <p>Shipping worldwide with reliable logistics and timely delivery guarantees.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>100% Organic</h3>
+                    <p>Certified organic millets grown without harmful pesticides or chemicals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Genuine</h3>
+                    <p>Transparent sourcing with authentic, lab-tested batches you can trust.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Products Preview -->
+    <section class="popular-products">
+        <div class="container">
+            <h2 class="section-title">Our Popular Millets</h2>
+            <div class="products-preview">
+                <div class="product-preview-card" onclick="viewProductDetail(1)" style="cursor: pointer;">
+                    <div class="product-image-placeholder millet-ragi" style="background-image: url('images/finger_millets.webp')">
+                        <img src="images/finger_millets.webp" alt="Finger Millet" onerror="this.style.display='none';">
+                    </div>
+                    <h3>Finger Millet (Ragi)</h3>
+                    <p>Rich in calcium and fiber</p>
+                </div>
+                <div class="product-preview-card" onclick="viewProductDetail(2)" style="cursor: pointer;">
+                    <div class="product-image-placeholder millet-bajra" style="background-image: url('images/peral_millets.webp')">
+                        <img src="images/peral_millets.webp" alt="Pearl Millet" onerror="this.style.display='none';">
+                    </div>
+                    <h3>Pearl Millet (Bajra)</h3>
+                    <p>High in protein and iron</p>
+                </div>
+                <div class="product-preview-card" onclick="viewProductDetail(3)" style="cursor: pointer;">
+                    <div class="product-image-placeholder millet-foxtail" style="background-image: url('images/foxtail_millets.webp')">
+                        <img src="images/sorgam_millets.avif" alt="Sorghum Millet" onerror="this.style.display='none';">
+                    </div>
+                    <h3>Sorghum Millet (Jowar)</h3>
+                    <p>Gluten-free and nutritious</p>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="products.html" class="btn-secondary">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications & Standards -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>ISO & FSSAI</h3>
+                    <p>ISO 9001 quality systems and full FSSAI compliance for food safety and traceability.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌿</div>
+                    <h3>Organic Certified</h3>
+                    <p>Certified organic supply chain from farm to pack, independently audited.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Export Ready</h3>
+                    <p>Meets international export and phytosanitary standards with lab-tested batches.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Genuine</h3>
+                    <p>Authentic documentation and traceability for every shipment and batch.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SayOne Ventures</h3>
+                    <p>Leading exporters of premium organic millets worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@sayoneventures.com</p>
+                    <p>Phone: +91-XXXXXXXXXX</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SayOne Ventures. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
