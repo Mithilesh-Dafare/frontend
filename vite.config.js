@@ -3,9 +3,9 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 export default defineConfig({
-  root: 'public',
+  root: '.',
   build: {
-    outDir: '../dist',
+    outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
       input: {
@@ -13,7 +13,7 @@ export default defineConfig({
         about: resolve(__dirname, 'public/about.html'),
         contact: resolve(__dirname, 'public/contact.html'),
         products: resolve(__dirname, 'public/products.html'),
-        productDetail: resolve(__dirname, 'public/product-detail.html'),
+        'product-detail': resolve(__dirname, 'public/product-detail.html'),
         order: resolve(__dirname, 'public/order.html')
       }
     }
