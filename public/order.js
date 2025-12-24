@@ -1,4 +1,4 @@
-// Millet Products Data (same as products.js)
+// Millet Products Data
 const milletProducts = [
     { id: 1, name: 'Finger Millet (Ragi)', price: 120 },
     { id: 2, name: 'Pearl Millet (Bajra)', price: 100 },
@@ -11,7 +11,6 @@ const milletProducts = [
 ];
 
 let selectedProducts = {};
-let razorpayOrderId = null;
 
 // Initialize order page
 document.addEventListener('DOMContentLoaded', function() {
@@ -160,9 +159,10 @@ function validateForm() {
     proceedBtn.disabled = !isValid;
 }
 
-// Handle payment
+// Handle order submission
 async function handlePayment() {
     const form = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('proceedPayment');
     
     if (!form.checkValidity()) {
         form.reportValidity();
@@ -174,6 +174,10 @@ async function handlePayment() {
         return;
     }
 
+    // Disable button to prevent multiple submissions
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
     const formData = {
         name: document.getElementById('name').value.trim(),
         phone: document.getElementById('phone').value.trim(),
@@ -182,13 +186,17 @@ async function handlePayment() {
         city: document.getElementById('city').value.trim(),
         country: document.getElementById('country').value.trim(),
         postalCode: document.getElementById('postalCode').value.trim(),
-        items: Object.values(selectedProducts),
+        items: Object.values(selectedProducts).map(item => ({
+            ...item,
+            quantity: item.unit === 'ton' ? item.quantity * 1000 : item.quantity,
+            unit: 'kg' // Convert all to kg for backend
+        })),
         totalAmount: parseFloat(document.getElementById('totalAmount').textContent.replace('₹', ''))
     };
 
     try {
-        // Create Razorpay order
-        const response = await fetch('/api/create-order', {
+        // Submit order to backend
+        const response = await fetch('https://backend-sandy-delta-67.vercel.app/api/order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -198,76 +206,27 @@ async function handlePayment() {
 
         const data = await response.json();
 
-        if (!data.success) {
-            throw new Error(data.error || 'Failed to create order');
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to submit order');
         }
 
-        razorpayOrderId = data.orderId;
-
-        // Initialize Razorpay checkout
-        const options = {
-            key: 'your_razorpay_key_id', // Replace with your Razorpay key
-            amount: data.amount,
-            currency: data.currency,
-            name: 'SayOne Ventures',
-            description: 'Millet Order',
-            order_id: data.orderId,
-            handler: function(response) {
-                verifyPayment(response, formData);
-            },
-            prefill: {
-                name: formData.name,
-                email: formData.email,
-                contact: formData.phone
-            },
-            theme: {
-                color: '#2d5016'
-            },
-            modal: {
-                ondismiss: function() {
-                    alert('Payment cancelled');
-                }
-            }
-        };
-
-        const razorpay = new Razorpay(options);
-        razorpay.open();
+        // Show success message
+        document.getElementById('successModal').style.display = 'block';
+        document.getElementById('orderForm').reset();
+        selectedProducts = {};
+        updateOrderSummary();
+        
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Place Order';
+        
     } catch (error) {
-        console.error('Payment error:', error);
-        alert('Failed to process payment. Please try again.');
-    }
-}
-
-// Verify payment
-async function verifyPayment(paymentResponse, formData) {
-    try {
-        const response = await fetch('/api/verify-payment', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                ...formData,
-                paymentId: paymentResponse.razorpay_payment_id,
-                orderId: paymentResponse.razorpay_order_id
-            })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            // Show success modal
-            document.getElementById('successModal').style.display = 'block';
-            // Reset form
-            document.getElementById('orderForm').reset();
-            selectedProducts = {};
-            updateOrderSummary();
-        } else {
-            throw new Error(data.error || 'Payment verification failed');
-        }
-    } catch (error) {
-        console.error('Verification error:', error);
-        alert('Payment verification failed. Please contact support.');
+        console.error('Order submission error:', error);
+        alert('Failed to submit order. Please try again.');
+        
+        // Reset button state on error
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Place Order';
     }
 }
 
@@ -279,12 +238,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (closeModal) {
         closeModal.addEventListener('click', function() {
             modal.style.display = 'none';
+            // Redirect to home page after closing modal
+            window.location.href = '/';
         });
     }
 
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
             modal.style.display = 'none';
+            // Redirect to home page after clicking outside modal
+            window.location.href = '/';
         }
     });
 });
